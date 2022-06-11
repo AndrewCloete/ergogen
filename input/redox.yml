@@ -1,6 +1,7 @@
 units:
-  diode_x: 0.2u 
+  diode_x: 0.3u 
   diode_y: -0.5u 
+  diode_b: 1.7
   stagger_ring: 3
   stagger_middle: 3
   stagger_index: -4
@@ -270,17 +271,17 @@ pcbs:
         type: frankendiode
         anchor:
           ref: main_far_bottom
-          shift: [diode_x, diode_y]
+          shift: [diode_x, diode_y+diode_b]
           rotate: 180
         nets:
           from: main_far_bottom
           to: P21
       
       D_arrows_far_function:
-        type: frankendiode
+        type: offsetfrankendiode
         anchor:
           ref: arrows_far_function
-          shift: [diode_x, diode_y]
+          shift: [diode_x, -diode_y-diode_b]
           rotate: 180
         nets:
           from: arrows_far_function
@@ -321,17 +322,17 @@ pcbs:
         type: frankendiode
         anchor:
           ref: main_pinky_bottom
-          shift: [diode_x, diode_y]
+          shift: [diode_x, diode_y+diode_b]
           rotate: 180
         nets:
           from: main_pinky_bottom
           to: P20
       
       D_arrows_pinky_function:
-        type: frankendiode
+        type: offsetfrankendiode
         anchor:
           ref: arrows_pinky_function
-          shift: [diode_x, diode_y]
+          shift: [diode_x, -diode_y-diode_b]
           rotate: 180
         nets:
           from: arrows_pinky_function
@@ -373,17 +374,17 @@ pcbs:
         type: frankendiode
         anchor:
           ref: main_ring_bottom
-          shift: [diode_x, diode_y]
+          shift: [diode_x, diode_y+diode_b]
           rotate: 180
         nets:
           from: main_ring_bottom
           to: P19
       
       D_arrows_ring_function:
-        type: frankendiode
+        type: offsetfrankendiode
         anchor:
           ref: arrows_ring_function
-          shift: [diode_x, diode_y]
+          shift: [diode_x, -diode_y-diode_b]
           rotate: 180
         nets:
           from: arrows_ring_function
@@ -424,17 +425,17 @@ pcbs:
         type: frankendiode
         anchor:
           ref: main_middle_bottom
-          shift: [diode_x, diode_y]
+          shift: [diode_x, diode_y+diode_b]
           rotate: 180
         nets:
           from: main_middle_bottom
           to: P18
       
       D_arrows_middle_function:
-        type: frankendiode
+        type: offsetfrankendiode
         anchor:
           ref: arrows_middle_function
-          shift: [diode_x, diode_y]
+          shift: [diode_x, -diode_y-diode_b]
           rotate: 180
         nets:
           from: arrows_middle_function
