@@ -131,23 +131,23 @@ points:
         ref: main_inner_bottom
         shift: [0, -38]
       columns:
-        home:
+        neutral:
           rotate: -28
           spread: u
           origin: [u, u]
           rows:
             function:
-              column_net: thumb_home_function
+              column_net: thumb_neutral_function
             bottom:
-              column_net: thumb_home_bottom
-        top_home:
+              column_net: thumb_neutral_bottom
+        edge:
           spread: u
           origin: [-11.75, -9]
           rows:
             function:
-              column_net: thumb_top_home_function
+              column_net: thumb_edge_function
             bottom:
-              column_net: thumb_top_home_bottom
+              column_net: thumb_edge_bottom
       rows:
         function:
           shift: [0, -5]
@@ -170,7 +170,7 @@ points:
     extra:
       anchor:
         ref: main_inner_top
-        shift: [u, -10]
+        shift: [u, -15]
       columns:
         extra:
           rows:
@@ -182,7 +182,7 @@ points:
         top:
           bind: [0,3,20,0]
         numbers:
-          bind: [3,3,0,0]
+          bind: [5,3,0,0]
 
 
 outlines:
@@ -212,7 +212,7 @@ outlines:
         bound: false               
 
 pcbs:
-  picodox:
+  redox:
     outlines:
       main:
         outline: cutout
@@ -485,8 +485,111 @@ pcbs:
         type: frankendiode
         anchor:
           ref: loner_index_function
-          shift: [diode_x, diode_y]
+          shift: [-diode_x, -diode_y]
           rotate: 180
         nets:
           from: loner_index_function
           to: P17
+
+
+      # ====== INNER ======
+      D_main_inner_numbers:
+        type: frankendiode
+        anchor:
+          ref: main_inner_numbers
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: main_inner_numbers
+          to: P16
+
+      D_main_inner_top:
+        type: frankendiode
+        anchor:
+          ref: main_inner_top
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: main_inner_top
+          to: P16
+
+      D_main_inner_home:
+        type: frankendiode
+        anchor:
+          ref: main_inner_home
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: main_inner_home
+          to: P16
+        
+      D_main_inner_bottom:
+        type: frankendiode
+        anchor:
+          ref: main_inner_bottom
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: main_inner_bottom
+          to: P16
+      
+      D_thumb_neutral_function:
+        type: frankendiode
+        anchor:
+          ref: thumb_neutral_function
+          shift: [-diode_x -5, -diode_y + 1]
+          rotate: 270
+        nets:
+          from: thumb_neutral_function
+          to: P16
+
+      # ====== EXTRA ======
+      D_extra_extra_numbers:
+        type: frankendiode
+        anchor:
+          ref: extra_extra_numbers
+          shift: [diode_x, -diode_y]
+          rotate: 180
+        nets:
+          from: extra_extra_numbers
+          to: P15
+
+      D_extra_extra_top:
+        type: frankendiode
+        anchor:
+          ref: extra_extra_top
+          shift: [diode_x, -diode_y]
+          rotate: 180
+        nets:
+          from: extra_extra_top
+          to: P15
+
+      D_thumb_neutral_bottom:
+        type: frankendiode
+        anchor:
+          ref: thumb_neutral_bottom
+          shift: [-diode_x, -diode_y]
+          rotate: 180
+        nets:
+          from: thumb_neutral_bottom
+          to: P15
+        
+      D_thumb_edge_bottom:
+        type: frankendiode
+        anchor:
+          ref: thumb_edge_bottom
+          shift: [-diode_x -2, -diode_y]
+          rotate: 0
+        nets:
+          from: thumb_edge_bottom
+          to: P15
+      
+      D_thumb_edge_function:
+        type: frankendiode
+        anchor:
+          ref: thumb_edge_function
+          shift: [-diode_x -2, -diode_y]
+          rotate: 0
+        nets:
+          from: thumb_edge_function
+          to: P15
