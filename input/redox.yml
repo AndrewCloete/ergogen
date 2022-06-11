@@ -1,0 +1,492 @@
+units:
+  diode_x: 0.2u 
+  diode_y: -0.5u 
+  stagger_ring: 3
+  stagger_middle: 3
+  stagger_index: -4
+  stagger_inner: -1
+
+
+points:
+  key:
+    footprints:
+      mx_hotswap:
+        type: mx
+        nets:
+          from: =column_net
+          to: =row
+        params:
+          keycaps: true
+          hotswap: true
+          reverse: true
+          mirror: true
+
+  zones:
+    main:
+      anchor:
+        rotate: 0
+      columns:
+        far:
+          rows:
+            bottom:
+              column_net: main_far_bottom
+            home:
+              column_net: main_far_home
+            top:
+              column_net: main_far_top
+            numbers:
+              column_net: main_far_numbers
+              bind: [3,3,0,10]
+        pinky:
+          rows:
+            bottom:
+              column_net: main_pinky_bottom
+            home:
+              column_net: main_pinky_home
+            top:
+              column_net: main_pinky_top
+            numbers:
+              column_net: main_pinky_numbers
+        ring:
+          stagger: stagger_ring
+          rows:
+            bottom:
+              column_net: main_ring_bottom
+            home:
+              column_net: main_ring_home
+            top:
+              column_net: main_ring_top
+            numbers:
+              column_net: main_ring_numbers
+        middle:
+          stagger: stagger_middle
+          rows:
+            bottom:
+              column_net: main_middle_bottom
+            home:
+              column_net: main_middle_home
+            top:
+              column_net: main_middle_top
+            numbers:
+              column_net: main_middle_numbers
+        index:
+          stagger: stagger_index
+          rows:
+            bottom:
+              column_net: main_index_bottom
+            home:
+              column_net: main_index_home
+            top:
+              column_net: main_index_top
+            numbers:
+              column_net: main_index_numbers
+        inner:
+          stagger: stagger_inner
+          rows:
+            bottom:
+              column_net: main_inner_bottom
+            home:
+              column_net: main_inner_home
+            top:
+              column_net: main_inner_top
+            numbers:
+              column_net: main_inner_numbers
+      rows:
+        bottom:
+          bind: [0,3,0,3]
+        home:
+          bind: [0,3,0,3]
+        top:
+          bind: [0,3,0,3]
+        numbers:
+          bind: [3,3,0,3]
+    arrows:
+      anchor:
+        ref: main_far_bottom
+        shift: [0, -u]
+      columns:
+        far:
+          rows:
+            function:
+              column_net: arrows_far_function
+        pinky:
+          rows:
+            function:
+              column_net: arrows_pinky_function
+        ring:
+          stagger: stagger_ring
+          rows:
+            function:
+              column_net: arrows_ring_function
+        middle:
+          stagger: stagger_middle
+          rows:
+            function:
+              column_net: arrows_middle_function
+      rows:
+        function:
+          bind: [0,0,0,3]
+    thumb:
+      anchor:
+        ref: main_inner_bottom
+        shift: [0, -38]
+      columns:
+        home:
+          rotate: -28
+          spread: u
+          origin: [u, u]
+          rows:
+            function:
+              column_net: thumb_home_function
+            bottom:
+              column_net: thumb_home_bottom
+        top_home:
+          spread: u
+          origin: [-11.75, -9]
+          rows:
+            function:
+              column_net: thumb_top_home_function
+            bottom:
+              column_net: thumb_top_home_bottom
+      rows:
+        function:
+          shift: [0, -5]
+          bind: [3,10,5,15]
+        bottom:
+          bind: [3,10,3,15]
+    loner:
+      anchor:
+        ref: main_index_bottom
+        rotate: -14
+        shift: [5, -25]
+      columns:
+        index:
+          origin: [-38, -38]
+          rows:
+            function:
+              column_net: loner_index_function
+      rows:
+        function:
+    extra:
+      anchor:
+        ref: main_inner_top
+        shift: [u, -10]
+      columns:
+        extra:
+          rows:
+            top:
+              column_net: extra_extra_top
+            numbers:
+              column_net: extra_extra_numbers 
+      rows:
+        top:
+          bind: [0,3,20,0]
+        numbers:
+          bind: [3,3,0,0]
+
+
+outlines:
+  exports:
+    raw: 
+      - type: keys
+        side: left
+        size: [1u , 1u]
+      - type: rectangle
+        size: [110, 35]
+        anchor:
+          ref: arrows_far_function
+          shift: [-0.5u - 10, -0.5u - 5]
+      - type: rectangle
+        size: [55, 70]
+        anchor:
+          ref: extra_extra_numbers
+          shift: [-u, -61]
+    cutout:
+      - type: outline
+        name: raw
+        fillet: 1
+    keycap_outlines:
+      - type: keys
+        side: left
+        size: [u-0.8, u-0.8]
+        bound: false               
+
+pcbs:
+  picodox:
+    outlines:
+      main:
+        outline: cutout
+    footprints:
+      promicro:
+        type: promicro
+        anchor:
+          ref: extra_extra_numbers
+          shift: [23, -20]
+          rotate: 270
+      trrs:
+        type: trrs
+        anchor:
+          ref: extra_extra_top
+          shift: [32, -25]
+          rotate: 270
+        nets:
+          A: GND
+          B: b
+          C: c
+          D: d
+
+      # ====== FAR ======
+      D_main_far_numbers:
+        type: frankendiode
+        anchor:
+          ref: main_far_numbers
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: main_far_numbers
+          to: P21
+
+      D_main_far_top:
+        type: frankendiode
+        anchor:
+          ref: main_far_top
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: main_far_top
+          to: P21
+
+      D_main_far_home:
+        type: frankendiode
+        anchor:
+          ref: main_far_home
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: main_far_home
+          to: P21
+        
+      D_main_far_bottom:
+        type: frankendiode
+        anchor:
+          ref: main_far_bottom
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: main_far_bottom
+          to: P21
+      
+      D_arrows_far_function:
+        type: frankendiode
+        anchor:
+          ref: arrows_far_function
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: arrows_far_function
+          to: P21
+      
+      # ====== PINKY ======
+      D_main_pinky_numbers:
+        type: frankendiode
+        anchor:
+          ref: main_pinky_numbers
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: main_pinky_numbers
+          to: P20
+
+      D_main_pinky_top:
+        type: frankendiode
+        anchor:
+          ref: main_pinky_top
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: main_pinky_top
+          to: P20
+
+      D_main_pinky_home:
+        type: frankendiode
+        anchor:
+          ref: main_pinky_home
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: main_pinky_home
+          to: P20
+        
+      D_main_pinky_bottom:
+        type: frankendiode
+        anchor:
+          ref: main_pinky_bottom
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: main_pinky_bottom
+          to: P20
+      
+      D_arrows_pinky_function:
+        type: frankendiode
+        anchor:
+          ref: arrows_pinky_function
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: arrows_pinky_function
+          to: P20
+
+
+      # ====== RING ======
+      D_main_ring_numbers:
+        type: frankendiode
+        anchor:
+          ref: main_ring_numbers
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: main_ring_numbers
+          to: P19
+
+      D_main_ring_top:
+        type: frankendiode
+        anchor:
+          ref: main_ring_top
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: main_ring_top
+          to: P19
+
+      D_main_ring_home:
+        type: frankendiode
+        anchor:
+          ref: main_ring_home
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: main_ring_home
+          to: P19
+        
+      D_main_ring_bottom:
+        type: frankendiode
+        anchor:
+          ref: main_ring_bottom
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: main_ring_bottom
+          to: P19
+      
+      D_arrows_ring_function:
+        type: frankendiode
+        anchor:
+          ref: arrows_ring_function
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: arrows_ring_function
+          to: P19
+
+      # ====== MIDDLE ======
+      D_main_middle_numbers:
+        type: frankendiode
+        anchor:
+          ref: main_middle_numbers
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: main_middle_numbers
+          to: P18
+
+      D_main_middle_top:
+        type: frankendiode
+        anchor:
+          ref: main_middle_top
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: main_middle_top
+          to: P18
+
+      D_main_middle_home:
+        type: frankendiode
+        anchor:
+          ref: main_middle_home
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: main_middle_home
+          to: P18
+        
+      D_main_middle_bottom:
+        type: frankendiode
+        anchor:
+          ref: main_middle_bottom
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: main_middle_bottom
+          to: P18
+      
+      D_arrows_middle_function:
+        type: frankendiode
+        anchor:
+          ref: arrows_middle_function
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: arrows_middle_function
+          to: P18
+
+      # ====== INDEX ======
+      D_main_index_numbers:
+        type: frankendiode
+        anchor:
+          ref: main_index_numbers
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: main_index_numbers
+          to: P17
+
+      D_main_index_top:
+        type: frankendiode
+        anchor:
+          ref: main_index_top
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: main_index_top
+          to: P17
+
+      D_main_index_home:
+        type: frankendiode
+        anchor:
+          ref: main_index_home
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: main_index_home
+          to: P17
+        
+      D_main_index_bottom:
+        type: frankendiode
+        anchor:
+          ref: main_index_bottom
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: main_index_bottom
+          to: P17
+      
+      D_loner_index_function:
+        type: frankendiode
+        anchor:
+          ref: loner_index_function
+          shift: [diode_x, diode_y]
+          rotate: 180
+        nets:
+          from: loner_index_function
+          to: P17

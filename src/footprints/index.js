@@ -4,6 +4,7 @@ module.exports = {
     choc: require('./choc'),
     chocmini: require('./chocmini'),
     diode: require('./diode'),
+    frankendiode: require('./frankendiode'),
     jstph: require('./jstph'),
     jumper: require('./jumper'),
     mx: require('./mx'),
@@ -21,4 +22,5 @@ module.exports = {
     pcm12: require('./pcm12'),
     bat: require('./bat'),
     b3u1000p: require('./b3u1000p'),
+    airwire: require('./airwire'),
 }

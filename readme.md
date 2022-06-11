@@ -10,3 +10,12 @@ For usage and config information, please refer to the [docs](https://docs.ergoge
 
 Feature ideas, documentation improvements, examples, tests, or pull requests welcome!
 Get in touch [on Discord](https://discord.gg/nbKcAZB), and we can definitely find something you can help with, if you'd like to.
+
+## Cookbook
+For some reason the official ergogen repo did not work. The executable that ships with BenVallacks repo did. Use it as follows:
+
+```sh
+alias ergogen="/home/user/Workspace/ergogen/src/cli.js"
+
+ergogen input/redox.yml -o dist
+```
