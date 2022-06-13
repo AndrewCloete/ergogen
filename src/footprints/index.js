@@ -21,6 +21,7 @@ module.exports = {
     scrollwheel: require('./scrollwheel'),
     slider: require('./slider'),
     trrs: require('./trrs'),
+    trrs2: require('./trrs2'),
     via: require('./via'),
     pcm12: require('./pcm12'),
     bat: require('./bat'),

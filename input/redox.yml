@@ -233,16 +233,15 @@ pcbs:
         outline: cutout
     footprints:
       trrs:
-        type: trrs
+        type: trrs2
         anchor:
           ref: main_inner_bottom
-          shift: [45, 5]
-          rotate: 270
+          shift: [33, 2]
+          rotate: 90
         nets:
-          A: GND
-          B: b
-          C: c
-          D: d
+          GND: GND
+          Signal: P21
+          VCC: VCC
 
       promicro:
         type: promicro
