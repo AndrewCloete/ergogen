@@ -1,6 +1,7 @@
 units:
   diode_x: 0.3u 
   diode_y: -0.5u 
+  tridiode_y: -0.5u+5
   diode_b: 1.7
   stagger_ring: 3
   stagger_middle: 3
@@ -81,6 +82,7 @@ points:
               column_net: main_index_top
             numbers:
               column_net: main_index_numbers
+              bind: [3-stagger_index,5,0,3]
         inner:
           stagger: stagger_inner
           rows:
@@ -92,6 +94,7 @@ points:
               column_net: main_inner_top
             numbers:
               column_net: main_inner_numbers
+              bind: [3-stagger_index-stagger_inner,10,0,3]
       rows:
         bottom:
           bind: [0,3,0,3]
@@ -141,6 +144,17 @@ points:
               column_net: thumb_neutral_function
             bottom:
               column_net: thumb_neutral_bottom
+              footprints:
+                mx_hotswap:
+                  type: mx
+                  nets:
+                    from: =column_net
+                    to: home # Need footprint since this is the only key with the row exception
+                  params:
+                    keycaps: true
+                    hotswap: true
+                    reverse: true
+                    mirror: true
         edge:
           spread: u
           origin: [-11.75, -9]
@@ -152,9 +166,9 @@ points:
       rows:
         function:
           shift: [0, -5]
-          bind: [3,10,5,15]
+          bind: [3,15,5,15]
         bottom:
-          bind: [3,10,3,15]
+          bind: [3,15,3,15]
     loner:
       anchor:
         ref: main_index_bottom
@@ -198,10 +212,10 @@ outlines:
           ref: arrows_far_function
           shift: [-0.5u - 10, -0.5u - 5]
       - type: rectangle
-        size: [55, 70]
+        size: [58, 4.7u]
         anchor:
-          ref: extra_extra_numbers
-          shift: [-u, -61]
+          ref: extra_extra_top
+          shift: [-u, -2.4u]
     cutout:
       - type: outline
         name: raw
@@ -218,17 +232,11 @@ pcbs:
       main:
         outline: cutout
     footprints:
-      promicro:
-        type: promicro
-        anchor:
-          ref: extra_extra_numbers
-          shift: [23, -20]
-          rotate: 270
       trrs:
         type: trrs
         anchor:
-          ref: extra_extra_top
-          shift: [32, -25]
+          ref: main_inner_bottom
+          shift: [45, 5]
           rotate: 270
         nets:
           A: GND
@@ -236,190 +244,230 @@ pcbs:
           C: c
           D: d
 
+      promicro:
+        type: promicro
+        anchor:
+          ref: extra_extra_numbers
+          shift: [23, -15]
+          rotate: 270
+        params:
+          orientation: down
+
       # ====== FAR ======
       D_main_far_numbers:
         type: frankendiode
         anchor:
           ref: main_far_numbers
-          shift: [diode_x, diode_y]
+          shift: [diode_x, tridiode_y]
           rotate: 180
         nets:
           from: main_far_numbers
-          to: P21
+          to: far
 
       D_main_far_top:
-        type: frankendiode
+        type: trifrankendiode
         anchor:
           ref: main_far_top
-          shift: [diode_x, diode_y]
+          shift: [diode_x, tridiode_y]
           rotate: 180
         nets:
           from: main_far_top
-          to: P21
+          to: far
 
       D_main_far_home:
-        type: frankendiode
+        type: trifrankendiode
         anchor:
           ref: main_far_home
-          shift: [diode_x, diode_y]
+          shift: [diode_x, tridiode_y]
           rotate: 180
         nets:
           from: main_far_home
-          to: P21
+          to: far
         
       D_main_far_bottom:
-        type: frankendiode
+        type: trifrankendiode
         anchor:
           ref: main_far_bottom
-          shift: [diode_x, diode_y+diode_b]
+          shift: [diode_x, diode_y+2.7diode_b]
           rotate: 180
         nets:
           from: main_far_bottom
-          to: P21
+          to: far
       
       D_arrows_far_function:
         type: offsetfrankendiode
         anchor:
           ref: arrows_far_function
-          shift: [diode_x, -diode_y-diode_b]
+          shift: [diode_x, -diode_y]
           rotate: 180
         nets:
           from: arrows_far_function
-          to: P21
+          to: far
+      T_arrows_far_function:
+        type: thru 
+        anchor:
+          ref: arrows_far_function
+          shift: [0.5u, -0.3u]
+          rotate: 0
+        nets:
+          net: far
       
       # ====== PINKY ======
       D_main_pinky_numbers:
         type: frankendiode
         anchor:
           ref: main_pinky_numbers
-          shift: [diode_x, diode_y]
+          shift: [diode_x, tridiode_y]
           rotate: 180
         nets:
           from: main_pinky_numbers
-          to: P20
+          to: pinky
 
       D_main_pinky_top:
-        type: frankendiode
+        type: trifrankendiode
         anchor:
           ref: main_pinky_top
-          shift: [diode_x, diode_y]
+          shift: [diode_x, tridiode_y]
           rotate: 180
         nets:
           from: main_pinky_top
-          to: P20
+          to: pinky
 
       D_main_pinky_home:
-        type: frankendiode
+        type: trifrankendiode
         anchor:
           ref: main_pinky_home
-          shift: [diode_x, diode_y]
+          shift: [diode_x, tridiode_y]
           rotate: 180
         nets:
           from: main_pinky_home
-          to: P20
+          to: pinky
         
       D_main_pinky_bottom:
-        type: frankendiode
+        type: trifrankendiode
         anchor:
           ref: main_pinky_bottom
-          shift: [diode_x, diode_y+diode_b]
+          shift: [diode_x, diode_y+2.7diode_b]
           rotate: 180
         nets:
           from: main_pinky_bottom
-          to: P20
+          to: pinky
       
       D_arrows_pinky_function:
         type: offsetfrankendiode
         anchor:
           ref: arrows_pinky_function
-          shift: [diode_x, -diode_y-diode_b]
+          shift: [diode_x, -diode_y]
           rotate: 180
         nets:
           from: arrows_pinky_function
-          to: P20
-
+          to: pinky
+      T_arrows_pinky_function:
+        type: thru 
+        anchor:
+          ref: arrows_pinky_function
+          shift: [0.5u, -0.3u]
+          rotate: 0
+        nets:
+          net: pinky
 
       # ====== RING ======
       D_main_ring_numbers:
         type: frankendiode
         anchor:
           ref: main_ring_numbers
-          shift: [diode_x, diode_y]
+          shift: [diode_x, tridiode_y]
           rotate: 180
         nets:
           from: main_ring_numbers
-          to: P19
+          to: ring
 
       D_main_ring_top:
-        type: frankendiode
+        type: trifrankendiode
         anchor:
           ref: main_ring_top
-          shift: [diode_x, diode_y]
+          shift: [diode_x, tridiode_y]
           rotate: 180
         nets:
           from: main_ring_top
-          to: P19
+          to: ring
 
       D_main_ring_home:
-        type: frankendiode
+        type: trifrankendiode
         anchor:
           ref: main_ring_home
-          shift: [diode_x, diode_y]
+          shift: [diode_x, tridiode_y]
           rotate: 180
         nets:
           from: main_ring_home
-          to: P19
+          to: ring
         
       D_main_ring_bottom:
-        type: frankendiode
+        type: trifrankendiode
         anchor:
           ref: main_ring_bottom
-          shift: [diode_x, diode_y+diode_b]
+          shift: [diode_x, diode_y+2.7diode_b]
           rotate: 180
         nets:
           from: main_ring_bottom
-          to: P19
+          to: ring
       
       D_arrows_ring_function:
         type: offsetfrankendiode
         anchor:
           ref: arrows_ring_function
-          shift: [diode_x, -diode_y-diode_b]
+          shift: [diode_x, -diode_y]
           rotate: 180
         nets:
           from: arrows_ring_function
-          to: P19
+          to: ring
+      T_arrows_ring_function:
+        type: thru 
+        anchor:
+          ref: arrows_ring_function
+          shift: [0.5u, -0.3u]
+          rotate: 0
+        nets:
+          net: ring
 
       # ====== MIDDLE ======
       D_main_middle_numbers:
-        type: frankendiode
+        type: trifrankendiode
         anchor:
           ref: main_middle_numbers
-          shift: [diode_x, diode_y]
+          shift: [diode_x, diode_y+1.5]
           rotate: 180
         nets:
           from: main_middle_numbers
-          to: P18
+          to: middle
+      T_main_middle_numbers:
+        type: thru 
+        anchor:
+          ref: main_middle_numbers
+          shift: [0.5u, 0.5u]
+          rotate: 0
+        nets:
+          net: middle
 
       D_main_middle_top:
-        type: frankendiode
+        type: trifrankendiode
         anchor:
           ref: main_middle_top
-          shift: [diode_x, diode_y]
+          shift: [diode_x, diode_y+1.5]
           rotate: 180
         nets:
           from: main_middle_top
-          to: P18
+          to: middle
 
       D_main_middle_home:
-        type: frankendiode
+        type: trifrankendiode
         anchor:
           ref: main_middle_home
-          shift: [diode_x, diode_y]
+          shift: [diode_x, diode_y+1.5]
           rotate: 180
         nets:
           from: main_middle_home
-          to: P18
+          to: middle
         
       D_main_middle_bottom:
         type: frankendiode
@@ -429,7 +477,7 @@ pcbs:
           rotate: 180
         nets:
           from: main_middle_bottom
-          to: P18
+          to: middle
       
       D_arrows_middle_function:
         type: offsetfrankendiode
@@ -439,110 +487,127 @@ pcbs:
           rotate: 180
         nets:
           from: arrows_middle_function
-          to: P18
+          to: middle
 
       # ====== INDEX ======
       D_main_index_numbers:
-        type: frankendiode
+        type: trifrankendiode
         anchor:
           ref: main_index_numbers
-          shift: [diode_x, diode_y]
+          shift: [diode_x, tridiode_y-1]
           rotate: 180
         nets:
           from: main_index_numbers
-          to: P17
+          to: index
+      T_main_index_numbers:
+        type: thru 
+        anchor:
+          ref: main_index_numbers
+          shift: [0.5u, 0.5u]
+          rotate: 0
+        nets:
+          net: index
+
 
       D_main_index_top:
-        type: frankendiode
+        type: trifrankendiode
         anchor:
           ref: main_index_top
-          shift: [diode_x, diode_y]
+          shift: [diode_x, tridiode_y-1]
           rotate: 180
         nets:
           from: main_index_top
-          to: P17
+          to: index
 
       D_main_index_home:
-        type: frankendiode
+        type: trifrankendiode
         anchor:
           ref: main_index_home
-          shift: [diode_x, diode_y]
+          shift: [diode_x, tridiode_y-1]
           rotate: 180
         nets:
           from: main_index_home
-          to: P17
+          to: index
         
       D_main_index_bottom:
-        type: frankendiode
+        type: trifrankendiode
         anchor:
           ref: main_index_bottom
-          shift: [diode_x, diode_y]
+          shift: [diode_x, tridiode_y-1]
           rotate: 180
         nets:
           from: main_index_bottom
-          to: P17
+          to: index
       
       D_loner_index_function:
-        type: frankendiode
+        type: diode
         anchor:
           ref: loner_index_function
           shift: [-diode_x, -diode_y]
           rotate: 180
         nets:
           from: loner_index_function
-          to: P17
+          to: index
 
 
       # ====== INNER ======
       D_main_inner_numbers:
-        type: frankendiode
+        type: trifrankendiode
         anchor:
           ref: main_inner_numbers
-          shift: [diode_x, diode_y]
+          shift: [diode_x, tridiode_y]
           rotate: 180
         nets:
           from: main_inner_numbers
-          to: P16
+          to: inner
+      T_main_inner_numbers:
+        type: thru 
+        anchor:
+          ref: main_inner_numbers
+          shift: [0.5u, 0.5u]
+          rotate: 0
+        nets:
+          net: inner
 
       D_main_inner_top:
-        type: frankendiode
+        type: trifrankendiode
         anchor:
           ref: main_inner_top
-          shift: [diode_x, diode_y]
+          shift: [diode_x, tridiode_y]
           rotate: 180
         nets:
           from: main_inner_top
-          to: P16
+          to: inner
 
       D_main_inner_home:
-        type: frankendiode
+        type: trifrankendiode
         anchor:
           ref: main_inner_home
-          shift: [diode_x, diode_y]
+          shift: [diode_x, tridiode_y]
           rotate: 180
         nets:
           from: main_inner_home
-          to: P16
+          to: inner
         
       D_main_inner_bottom:
-        type: frankendiode
+        type: trifrankendiode
         anchor:
           ref: main_inner_bottom
-          shift: [diode_x, diode_y]
+          shift: [diode_x, tridiode_y]
           rotate: 180
         nets:
           from: main_inner_bottom
-          to: P16
+          to: inner
       
       D_thumb_neutral_function:
-        type: frankendiode
+        type: diode
         anchor:
           ref: thumb_neutral_function
           shift: [-diode_x -5, -diode_y + 1]
           rotate: 270
         nets:
           from: thumb_neutral_function
-          to: P16
+          to: inner
 
       # ====== EXTRA ======
       D_extra_extra_numbers:
@@ -553,44 +618,44 @@ pcbs:
           rotate: 180
         nets:
           from: extra_extra_numbers
-          to: P15
+          to: extra
 
       D_extra_extra_top:
-        type: frankendiode
+        type: trifrankendiode
         anchor:
           ref: extra_extra_top
-          shift: [diode_x, -diode_y]
+          shift: [diode_x, -diode_y+3]
           rotate: 180
         nets:
           from: extra_extra_top
-          to: P15
+          to: extra
 
       D_thumb_neutral_bottom:
         type: frankendiode
         anchor:
           ref: thumb_neutral_bottom
-          shift: [-diode_x, -diode_y]
-          rotate: 180
+          shift: [-diode_x -5, -diode_y +1]
+          rotate: 270
         nets:
           from: thumb_neutral_bottom
-          to: P15
+          to: extra
         
       D_thumb_edge_bottom:
         type: frankendiode
         anchor:
           ref: thumb_edge_bottom
-          shift: [-diode_x -2, -diode_y]
+          shift: [-diode_x, -diode_y]
           rotate: 0
         nets:
           from: thumb_edge_bottom
-          to: P15
+          to: extra
       
       D_thumb_edge_function:
         type: frankendiode
         anchor:
           ref: thumb_edge_function
-          shift: [-diode_x -2, -diode_y]
+          shift: [-diode_x, -diode_y]
           rotate: 0
         nets:
           from: thumb_edge_function
-          to: P15
+          to: extra
